@@ -53,11 +53,11 @@ with a separate function to connect an input TTree to that namespace etc.
 #include <vector>
 #include <stdlib.h> // abort
 
-#include "UserCode/proc/interface/handy_macros.h"
+#include "UserCode/processing_ntuples/interface/handy_macros.h"
 
-#include "UserCode/proc/interface/sumup_loop_ntuple.h"
-#include "UserCode/proc/interface/ntuple_stage2.h"
-#include "UserCode/proc/interface/ntuple_ntupler.h"
+#include "UserCode/processing_ntuples/interface/sumup_loop_ntuple.h"
+#include "UserCode/processing_ntuples/interface/ntuple_stage2.h"
+#include "UserCode/processing_ntuples/interface/ntuple_ntupler.h"
 
 // the ntuple interface declarations
 // to be connected to one of the ntuple_ interfaces in main

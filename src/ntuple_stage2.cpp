@@ -1,5 +1,5 @@
 
-#include "UserCode/proc/interface/ntuple_stage2.h"
+#include "UserCode/processing_ntuples/interface/ntuple_stage2.h"
 
 /* Global interface to the ttree, the name space for all the event-processing fucntions.
  */

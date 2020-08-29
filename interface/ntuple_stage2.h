@@ -8,7 +8,7 @@
  they are basically std::map<string=name of the definition, <whatever defines it, some struct with the function and whatever else>>
  */
 
-#include "UserCode/proc/interface/sumup_loop_ntuple.h"
+#include "UserCode/processing_ntuples/interface/sumup_loop_ntuple.h"
 #include "TTree.h"
 
 T_known_defs_procs    create_known_defs_procs_stage2(void);

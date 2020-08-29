@@ -11,7 +11,7 @@ and link with \c -lxml2
 #include <iostream>
 #include <libxml2/libxml/xpath.h>
 
-#include "UserCode/proc/interface/handy_macros.h"
+#include "UserCode/processing_ntuples/interface/handy_macros.h"
 
 
 static xmlDocPtr dsets_info_doc; //

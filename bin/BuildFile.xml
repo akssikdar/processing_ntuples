@@ -1,5 +1,5 @@
 <use name="PhysicsTools/FWLite"/>
-<use name="UserCode/proc"/>
+<use name="UserCode/processing_ntuples"/>
 
  <!--<use name="UserCodeproc"/> links the lib compiled from our proc/src/ directory -->
 

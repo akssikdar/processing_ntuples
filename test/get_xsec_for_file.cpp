@@ -2,9 +2,9 @@
 */
 
 #include <stdio.h>
-#include "UserCode/proc/interface/DsetsInfo.hpp"
+#include "UserCode/processing_ntuples/interface/DsetsInfo.hpp"
 
-#include "UserCode/proc/interface/handy_macros.h"
+#include "UserCode/processing_ntuples/interface/handy_macros.h"
 
 int main (int argc, char *argv[])
 {

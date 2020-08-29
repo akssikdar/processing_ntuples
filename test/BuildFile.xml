@@ -9,7 +9,7 @@
 <use name="UserCode/ttbar-leptons-80X"/>
 -->
 
-<use name="UserCode/proc"/>
+<use name="UserCode/processing_ntuples"/>
 
 
 <environment>
