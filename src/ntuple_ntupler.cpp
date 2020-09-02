@@ -612,7 +612,25 @@ static double NT_distr_met(ObjSystematics sys)
 	return NT_met_init.Pt();
 	}
 
+static double NT_distr_electron_pt(ObjSystematics sys)
+        { if(NT_lep_p4.size() == 2)
+                if (abs(NT_lep_id[0]) ==11 )    return NT_lep_p4[0].pt();
+                else if(abs(NT_lep_id[1]) ==11) return NT_lep_p4[1].pt();
+                else    return -111;
+        else if(NT_lep_p4.size()==1 && (abs(NT_lep_id[0]) ==11 ||abs( NT_lep_id[1]) ==11) )     return NT_lep_p4[0].pt();
+        else
+        { return -111;}
+        } 
 
+static double NT_distr_muon_pt(ObjSystematics sys)
+        { if(NT_lep_p4.size() == 2)
+                if (abs(NT_lep_id[0]) ==13 )    return NT_lep_p4[0].pt();
+                else if(abs(NT_lep_id[1]) ==13) return NT_lep_p4[1].pt();
+                else    return -111;
+        else if(NT_lep_p4.size()==1 && (abs(NT_lep_id[0]) ==13 || abs(NT_lep_id[1]) ==13) )       return NT_lep_p4[0].pt();
+        else
+        { return -111;}
+        }
 
 /**
 \brief The initialization function for the definitions of the known distributions in the ntupler output ntuples.
@@ -631,6 +649,8 @@ T_known_defs_distrs create_known_defs_distrs_ntupler()
 	r = {50,  true,   0, 50};                                                      m["nvtx"] = {NT_distr_nvtx, r};
 
 	r = {40,  true,   0, 200};                                                     m["leading_lep_pt"] = {NT_distr_leading_lep_pt, r};
+        r = {40,  true,   0, 200};                                                     m["electron_pt"] = {NT_distr_electron_pt, r};
+        r = {40,  true,   0, 200};                                                     m["muon_pt"] = {NT_distr_muon_pt, r};
 	r = {40,  true,  30,  40};                                                     m["leading_lep_pt_el_edge35"] = {NT_distr_leading_lep_pt, r};
 	r = {40,  true,   0, 200};                                                     m["tau_pt"]         = {NT_distr_tau_pt, r};
 	// taus have smaller energy in ttbar, therefore we might want to look at a smaller range
