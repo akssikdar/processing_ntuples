@@ -1,0 +1,7 @@
+executable            = ./queue_dir//94v27/hists_2//job_692
+arguments             = 
+output                = output/job_692.$(ClusterId).$(ProcId).out
+error                 = error/job_692.$(ClusterId).$(ProcId).err
+log                   = log/job_692.$(ClusterId).log
++JobFlavour = "longlunch"
+queue

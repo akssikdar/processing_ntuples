@@ -1,0 +1,22 @@
+do_WNJets_stitching << " " << output_filename = 0 ./jobsums/distrs//94v27/hists_2//DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8//5_301.root
+main_dtag << " : " << main_dtag_info.cross_section = MC2017_Fall17_DYJetsToLL_50toInf : 6225.42
+Do not know a systematic TAUIDUp
+Do not know a systematic TAUIDDown
+Do not know a systematic PUUp
+Do not know a systematic PUDown
+Do not know a systematic bSFUp
+Do not know a systematic bSFDown
+Do not know a systematic LEPelIDUp
+Do not know a systematic LEPelIDDown
+Do not know a systematic LEPelTRGUp
+Do not know a systematic LEPelTRGDown
+Do not know a systematic LEPmuIDUp
+Do not know a systematic LEPmuIDDown
+Do not know a systematic LEPmuTRGUp
+Do not know a systematic LEPmuTRGDown
+n_systs_made << " " << n_chans_made << " " << n_procs_made << " " << n_distrs_made = 7 154 1820 3080
+cur_var << " " << input_filename = 0 /eos/user/a/asikdar//94v27/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/Ntupler_94v27_MC2017_Fall17_DYJetsToLL_50toInf_pmx_ext/210209_095801/0000/MC2017_Fall17_DYJetsToLL_50toInf_pmx_ext_213.root
+cur_var << " " << input_filename = 1 /eos/user/a/asikdar//94v27/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/Ntupler_94v27_MC2017_Fall17_DYJetsToLL_50toInf_pmx_ext/210209_095801/0000/MC2017_Fall17_DYJetsToLL_50toInf_pmx_ext_214.root
+cur_var << " " << input_filename = 2 /eos/user/a/asikdar//94v27/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/Ntupler_94v27_MC2017_Fall17_DYJetsToLL_50toInf_pmx_ext/210209_095801/0000/MC2017_Fall17_DYJetsToLL_50toInf_pmx_ext_215.root
+cur_var << " " << input_filename = 3 /eos/user/a/asikdar//94v27/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/Ntupler_94v27_MC2017_Fall17_DYJetsToLL_50toInf_pmx_ext/210209_095801/0000/MC2017_Fall17_DYJetsToLL_50toInf_pmx_ext_216.root
+cur_var << " " << input_filename = 4 /eos/user/a/asikdar//94v27/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/Ntupler_94v27_MC2017_Fall17_DYJetsToLL_50toInf_pmx_ext/210209_095801/0000/MC2017_Fall17_DYJetsToLL_50toInf_pmx_ext_217.root

@@ -1,0 +1,12 @@
+#!/bin/sh
+pwd
+export X509_USER_PROXY=
+export SCRAM_ARCH=slc6_amd64_gcc700
+export BUILD_ARCH=slc6_amd64_gcc700
+export VO_CMS_SW_DIR=/cvmfs/cms.cern.ch
+source $VO_CMS_SW_DIR/cmsset_default.sh
+export CMS_PATH=$VO_CMS_SW_DIR
+cd /afs/cern.ch/work/a/asikdar/public/LeptonUniversalityTest/CMSSW_10_3_3/src/
+cmsenv
+cd UserCode/processing_ntuples/
+sumup_loop 1 0 1 0 41300 std all std Mt_lep_met_c,leading_lep_pt,tau_sv_sign,dilep_mass,met_f,electron_pt,muon_pt,tau_pt,tau3h_pt,Mt_el_met,Mt_mu_met ./jobsums/distrs//94v27/hists_2//DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8//5_446.root /eos/user/a/asikdar//94v27/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/Ntupler_94v27_MC2017_Fall17_DYJetsToLL_50toInf_pmx_ext/210209_095801/0000/MC2017_Fall17_DYJetsToLL_50toInf_pmx_ext_867.root /eos/user/a/asikdar//94v27/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/Ntupler_94v27_MC2017_Fall17_DYJetsToLL_50toInf_pmx_ext/210209_095801/0000/MC2017_Fall17_DYJetsToLL_50toInf_pmx_ext_868.root /eos/user/a/asikdar//94v27/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/Ntupler_94v27_MC2017_Fall17_DYJetsToLL_50toInf_pmx_ext/210209_095801/0000/MC2017_Fall17_DYJetsToLL_50toInf_pmx_ext_869.root /eos/user/a/asikdar//94v27/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/Ntupler_94v27_MC2017_Fall17_DYJetsToLL_50toInf_pmx_ext/210209_095801/0000/MC2017_Fall17_DYJetsToLL_50toInf_pmx_ext_87.root /eos/user/a/asikdar//94v27/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/Ntupler_94v27_MC2017_Fall17_DYJetsToLL_50toInf_pmx_ext/210209_095801/0000/MC2017_Fall17_DYJetsToLL_50toInf_pmx_ext_870.root

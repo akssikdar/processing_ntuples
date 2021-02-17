@@ -1,0 +1,22 @@
+do_WNJets_stitching << " " << output_filename = 0 ./jobsums/distrs//94v27/hists_2//WJetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8//5_119.root
+main_dtag << " : " << main_dtag_info.cross_section = MC2017_Fall17_WJetsToLNu_13TeV : 52940
+Do not know a systematic TAUIDUp
+Do not know a systematic TAUIDDown
+Do not know a systematic PUUp
+Do not know a systematic PUDown
+Do not know a systematic bSFUp
+Do not know a systematic bSFDown
+Do not know a systematic LEPelIDUp
+Do not know a systematic LEPelIDDown
+Do not know a systematic LEPelTRGUp
+Do not know a systematic LEPelTRGDown
+Do not know a systematic LEPmuIDUp
+Do not know a systematic LEPmuIDDown
+Do not know a systematic LEPmuTRGUp
+Do not know a systematic LEPmuTRGDown
+n_systs_made << " " << n_chans_made << " " << n_procs_made << " " << n_distrs_made = 7 154 1918 4158
+cur_var << " " << input_filename = 0 /eos/user/a/asikdar//94v27/WJetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8/Ntupler_94v27_MC2017_Fall17_WJetsToLNu_13TeV_v2/210209_095233/0000/MC2017_Fall17_WJetsToLNu_13TeV_v2_7.root
+cur_var << " " << input_filename = 1 /eos/user/a/asikdar//94v27/WJetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8/Ntupler_94v27_MC2017_Fall17_WJetsToLNu_13TeV_v2/210209_095233/0000/MC2017_Fall17_WJetsToLNu_13TeV_v2_70.root
+cur_var << " " << input_filename = 2 /eos/user/a/asikdar//94v27/WJetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8/Ntupler_94v27_MC2017_Fall17_WJetsToLNu_13TeV_v2/210209_095233/0000/MC2017_Fall17_WJetsToLNu_13TeV_v2_71.root
+cur_var << " " << input_filename = 3 /eos/user/a/asikdar//94v27/WJetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8/Ntupler_94v27_MC2017_Fall17_WJetsToLNu_13TeV_v2/210209_095233/0000/MC2017_Fall17_WJetsToLNu_13TeV_v2_72.root
+cur_var << " " << input_filename = 4 /eos/user/a/asikdar//94v27/WJetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8/Ntupler_94v27_MC2017_Fall17_WJetsToLNu_13TeV_v2/210209_095233/0000/MC2017_Fall17_WJetsToLNu_13TeV_v2_73.root

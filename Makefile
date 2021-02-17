@@ -3,29 +3,31 @@ compile:
 	touch compile
 
 histograms_to_fit: interface_type=1
-histograms_to_fit: ntuples_dir=/eos/user/a/asikdar/
-histograms_to_fit: nt=94v22
-histograms_to_fit: hists=mc_2
+histograms_to_fit: ntuples_dir=/eos/user/a/asikdar
+histograms_to_fit: nt=94v27
+histograms_to_fit: hists=mc_7
 histograms_to_fit: distr_out=jobsums/distrs/
 histograms_to_fit: simulate_data_output=1
 histograms_to_fit: n_proc=6
 histograms_to_fit: lumi=41300
 histograms_to_fit: systematics=std
-histograms_to_fit: channels=el_sel,mu_sel,tt_elmu,el_sel_tauSV3,mu_sel_tauSV3
-histograms_to_fit: processes=std
-histograms_to_fit: distrs=Mt_lep_met_c,leading_lep_pt,tau_sv_sign,dilep_mass,met_f
+#histograms_to_fit: channels=el_sel,mu_sel,tt_elmu,el_sel_tauSV3,mu_sel_tauSV3
+histograms_to_fit: channels=all
+histograms_to_fit: processes=all
+#histograms_to_fit: processes=std
+histograms_to_fit: distrs=Mt_lep_met_c,leading_lep_pt,electron_pt,muon_pt,tau_pt,tau_sv_sign,dilep_mass,met_f,tau3h_pt,Mt_el_met,Mt_mu_met
 histograms_to_fit: dsets_grep=.
 histograms_to_fit: exe=sumup_loop
 histograms_to_fit:
 	mkdir -p ${distr_out}/${nt}/${hists}/
-	# same with xargs
-	#ls ${ntuples_dir}/${nt}/ | grep "${dsets_grep}" | xargs -P ${n_proc} -I DSET sh -c "time ${exe} ${interface_type} ${simulate_data_output} 1 0 ${lumi} ${systematics} ${channels} ${processes} ${distrs} ${distr_out}/${nt}/${hists}/DSET.root `find ${ntuples_dir}/${nt}/DSET/ -name '*.root' | grep -v -i fail`"
-	for DSET in `ls ${ntuples_dir}/${nt}/ | grep ${dsets_grep}`; do \
-           time ${exe} ${interface_type} ${simulate_data_output} 1 0 ${lumi} ${systematics} ${channels} ${processes} ${distrs} ${distr_out}/${nt}/${hists}/$$DSET.root ${ntuples_dir}/${nt}/$$DSET/*/*/*/*.root ; \
-	done
+	time ${exe} ${interface_type} ${simulate_data_output} 1 0 ${lumi} ${systematics} ${channels} ${processes} ${distrs} ${distr_out}/${nt}/${hists}/94v27_allchan_allprocess_mc7_test2_dyjet.root /eos/user/a/asikdar/94v27/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/Ntupler_94v27_MC2017_Fall17_DYJetsToLL_50toInf/210209_095513/0000/MC2017_Fall17_DYJetsToLL_50toInf_1.root # same with xargs
+	 #ls ${ntuples_dir}/${nt}/ | grep "${dsets_grep}" | xargs -P ${n_proc} -I DSET sh -c "time ${exe} ${interface_type} ${simulate_data_output} 1 0 ${lumi} ${systematics} ${channels} ${processes} ${distrs} ${distr_out}/${nt}/${hists}/DSET.root `find ${ntuples_dir}/${nt}/DSET/ -name '*.root' | grep -v -i fail`"
+	#for DSET in `ls ${ntuples_dir}/${nt}/ | grep ${dsets_grep}`; do \
+	        time ${exe} ${interface_type} ${simulate_data_output} 1 0 ${lumi} ${systematics} ${channels} ${processes} ${distrs} ${distr_out}/${nt}/${hists}/$$DSET.root ${ntuples_dir}/${nt}/$$DSET/*/*/*/*.root ; \
+	#done
 	#DSET_FILES=`find ${ntuples_dir}/${nt}/$$DSET -name "*.root" | grep -v -i fail`;
 	# gstore_outdirs//94v15/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/Ntupler_94v15_MC2017legacy_Fall17_DYJetsToLL_50toInf_madgraph_v1/200225_121301/0000/
-	hadd ${distr_out}/distrs_${nt}__${hists}.root  ${distr_out}/${nt}/${hists}/*root
+	#hadd ${distr_out}/distrs_${nt}__${hists}.root  ${distr_out}/${nt}/${hists}/*root
 
 histograms_to_fit_stage2: interface_type=0
 histograms_to_fit_stage2: stage2_dir=lstore_outdirs/
@@ -46,20 +48,6 @@ histograms_to_fit_stage2:
 	mkdir -p ${distr_out}/${nt}/${proc}/${hists}/
 	#for dtag in `ls ${stage2_dir}/${nt}/${proc}/`; do \
 	#   mkdir -p ${distr_out}/${nt}/${proc}/ ; \
-	#   time sumup_loop ${simulate_data_output} 1 0 ${lumi} std all std Mt_lep_met_c,leading_lep_pt ${distr_out}/${nt}/${proc}/$$dtag.root ${stage2_dir}/${nt}/${proc}/$$dtag/*root & \
-	#done
-	# same with xargs
-	ls ${stage2_dir}/${nt}/${proc}/ | grep "${dtags_grep}" | xargs -P ${n_proc} -I DTAG sh -c "time ${exe} ${interface_type} ${simulate_data_output} 1 0 ${lumi} ${systematics} ${channels} ${processes} ${distrs} ${distr_out}/${nt}/${proc}/${hists}/DTAG.root ${stage2_dir}/${nt}/${proc}/DTAG/*root"
-	#hadd ${distr_out}/distrs_${nt}_${proc}_mc_1.root ${distr_out}/${nt}/${proc}/*root
-	hadd ${distr_out}/distrs_${nt}_${proc}_${hists}.root  ${distr_out}/${nt}/${proc}/${hists}/*root
-
-examples_systematic_normalizations:
-	python syst_rates.py gstore_outdirs/94v3/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/Ntupler_94v3_MC2017legacy_Fall17_TTTo2L2Nu*/*/*/*root
-
-qwatch: n=10
-qwatch:
-	#watch -n ${n} 'qstat | grep " r     " | wc -l ; qstat | wc -l'
-	watch -n ${n} 'qstat -s r | wc -l ; qstat | wc -l'
 
 #log/job_1.2522719.log
 #queue_dir/94v3/processing1/jobs_dir/job_54
@@ -567,6 +555,20 @@ jobmaking:
 	ls ${inp_dir} | grep .root | xargs -n 1 -I FOO sh -c 'sed "s,${template_name},${inp_dir}/FOO," ${template_file} > ${job_dir}/FOO.job'
 
 # same with find
+jobmaking2: inp_dir=lstore_outdirs/v37/test1/MC2016_Summer16_TTJets_powheg/
+jobmaking2: template_file=template_file
+jobmaking2: inp_dir=lstore_outdirs/v37/test1/MC2016_Summer16_TTJets_powheg/
+jobmaking2: template_file=template_file
+jobmaking2: template_name=INPUTFILE_PATH
+jobmaking2: job_dir=./
+jobmaking2:
+	find ${inp_dir} -name "*.root" -exec sh -c 'sed "s,${template_name},${inp_dir}/{}," ${template_file} > ${job_dir}/`basename {}`.job' \;
+
+run_jobs_script: jobs_script=
+run_jobs_script: max_procs=12
+run_jobs_script:
+	cat ${jobs_script} | xargs --delimiter='\n' --max-procs=${max_procs} -I COMMAND sh -c "COMMAND"
+
 jobmaking2: inp_dir=lstore_outdirs/v37/test1/MC2016_Summer16_TTJets_powheg/
 jobmaking2: template_file=template_file
 jobmaking2: template_name=INPUTFILE_PATH
