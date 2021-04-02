@@ -484,15 +484,31 @@ static double NT_distr_tau_pt(ObjSystematics sys)
                     TES_factor_up = 1.006 + 0.012
                     TES_factor_dn = 1.006 - 0.012
 	*/
-
-	double pt = NT_tau_p4[0].pt();
+	if (NT_tau_p4[0].pt() > 20 && abs(NT_tau_p4[0].eta())<2.4 )
+		{double pt = NT_tau_p4[0].pt();
+		return pt * NT_calc_leading_tau_energy_scale_correction(sys);
+		} 
+	else
+		return -111;
 	////if      (sys == TESUp)   return pt * NT_event_taus_TES_up[0];
 	////else if (sys == TESDown) return pt * NT_event_taus_TES_down[0];
 	//if      (sys == TESUp)   return pt * (NT_tau_decayMode[0] == 0 ? 0.995 + 0.012 : (NT_tau_decayMode[0] < 10 ? 1.011 + 0.012 : 1.006 + 0.012));
 	//else if (sys == TESDown) return pt * (NT_tau_decayMode[0] == 0 ? 0.995 - 0.012 : (NT_tau_decayMode[0] < 10 ? 1.011 - 0.012 : 1.006 - 0.012));
 	//else                     return pt * (NT_tau_decayMode[0] == 0 ? 0.995         : (NT_tau_decayMode[0] < 10 ? 1.011         : 1.006        ));
 
-	return pt * NT_calc_leading_tau_energy_scale_correction(sys);
+	}
+
+static double NT_distr_tau3h_pt(ObjSystematics sys)
+	{
+	if (NT_tau_p4.size()==0)
+		return -111.;
+	if (NT_tau_decayMode[0]==10 && NT_tau_p4[0].pt() >20) // && NT_tau_deep_IDlev[0] > 1) // interface is not defined for deep tau
+	   {
+	    double tau3h_pt = NT_tau_p4[0].pt();
+	    return tau3h_pt * NT_calc_leading_tau_energy_scale_correction(sys);
+	   }
+	else 
+	    return -111;
 	}
 
 static double NT_calc_tau_sv_sign_geom(ObjSystematics sys)
@@ -595,6 +611,31 @@ static double NT_distr_Mt_lep_met(ObjSystematics sys)
 	return mT_init;
 	}
 
+static double NT_distr_Mt_el_met(ObjSystematics sys)
+	{
+	if(NT_lep_p4.size() == 0)
+		return -111;
+	else if (NT_lep_p4.size()>0 && abs(NT_lep_id[0]) ==11)
+		return transverse_mass_pts(NT_lep_p4[0].Px(), NT_lep_p4[0].Py(), NT_met_init.Px(), NT_met_init.Py());
+        else if (NT_lep_p4.size()>1 && abs(NT_lep_id[1]) ==11)
+     	return transverse_mass_pts(NT_lep_p4[1].Px(), NT_lep_p4[1].Py(), NT_met_init.Px(), NT_met_init.Py());
+	else
+		return -111.;	
+	}
+
+static double NT_distr_Mt_mu_met(ObjSystematics sys)
+	{
+	if(NT_lep_p4.size() == 0)
+		return -111;
+	else if (NT_lep_p4.size()>0 && abs(NT_lep_id[0]) ==13)
+		return transverse_mass_pts(NT_lep_p4[0].Px(), NT_lep_p4[0].Py(), NT_met_init.Px(), NT_met_init.Py());
+        else if (NT_lep_p4.size()>1 && abs(NT_lep_id[1]) ==13)
+     	return transverse_mass_pts(NT_lep_p4[1].Px(), NT_lep_p4[1].Py(), NT_met_init.Px(), NT_met_init.Py());
+	else
+		return -111.;	
+	}
+
+
 static double NT_distr_met(ObjSystematics sys)
 	{
 
@@ -631,7 +672,31 @@ static double NT_distr_muon_pt(ObjSystematics sys)
         else
         { return -111;}
         }
+/*
+struct lep_id_range 
+        { Int_t min;
+	  Int_t max;
+        };
 
+struct dilep_id_ranges
+       {
+	struct lep_id_range r1;
+	struct lep_id_range r2;
+       }
+
+ static bool NT_genproc_tt_mutau3ch()
+        {
+        auto NT_gen_proc_id = NT_calc_gen_proc_id_tt();
+        return NT_gen_proc_id == 32;
+        }
+
+ static double NT_distr_mutau3h_taupt(ObjSystematics sys)
+  {  if(NT_genproc_tt_mutau3ch())
+        return NT_tau_p4[0].pt();
+     else
+     	return -111;
+  }
+*/
 /**
 \brief The initialization function for the definitions of the known distributions in the ntupler output ntuples.
 
@@ -651,8 +716,11 @@ T_known_defs_distrs create_known_defs_distrs_ntupler()
 	r = {40,  true,   0, 200};                                                     m["leading_lep_pt"] = {NT_distr_leading_lep_pt, r};
         r = {40,  true,   0, 200};                                                     m["electron_pt"] = {NT_distr_electron_pt, r};
         r = {40,  true,   0, 200};                                                     m["muon_pt"] = {NT_distr_muon_pt, r};
+      //  r = {40,  true,   0, 200};                                                     m["mutau1h_pt"] = {NT_distr_mutau1h_taupt, r};
+     //   r = {40,  true,   0, 200};                                                     m["mutau3h_pt"] = {NT_distr_mutau3h_taupt, r};
 	r = {40,  true,  30,  40};                                                     m["leading_lep_pt_el_edge35"] = {NT_distr_leading_lep_pt, r};
 	r = {40,  true,   0, 200};                                                     m["tau_pt"]         = {NT_distr_tau_pt, r};
+        r = {40,  true,   0, 200};                                                     m["tau3h_pt"]         = {NT_distr_tau3h_pt, r};
 	// taus have smaller energy in ttbar, therefore we might want to look at a smaller range
 	r = {40,  true,   0, 150};                                                     m["tau_pt_range2"]   = {NT_distr_tau_pt, r};
 	r = {21,  true,  -1,  20};                                                     m["tau_sv_sign"]     = {NT_distr_tau_sv_sign, r};
@@ -685,6 +753,8 @@ T_known_defs_distrs create_known_defs_distrs_ntupler()
 	r = {20, true,  0, 250};   m["Mt_lep_met_f"]   = {NT_distr_Mt_lep_met,     r};
 	r = {25, true,  0, 200};   m["met_f2"]         = {NT_distr_met, r};
 	r = {30, true,  0, 300};   m["met_f"]          = {NT_distr_met, r};
+        r = {30, true,  0, 300};   m["Mt_el_met"]          = {NT_distr_Mt_el_met, r};
+        r = {30, true,  0, 300};   m["Mt_mu_met"]          = {NT_distr_Mt_mu_met, r};
 	static double bins_met_c[] = {0,20,40,60,80,100,120,140,200,500}; r = {(sizeof(bins_met_c) / sizeof(bins_met_c[0]))-1, false,  -1, -1, bins_met_c};   m["met_c"]  = {NT_distr_met, r};
 
 	return m;
@@ -760,8 +830,8 @@ static Triggers NT_calc_triggers(ObjSystematics sys)
 	bool pass_mu_iso = pass_mu_id && NT_lep_relIso[0] < 0.15  ;
 	bool pass_el_iso = pass_el_id && NT_lep_relIso[0] < 0.0588;
 
-	bool pass_mu_kino = pass_mu_id && NT_lep_p4[0].pt() > 29. && abs(NT_lep_p4[0].eta()) < 2.4;
-	bool pass_el_kino = pass_el_id && NT_lep_p4[0].pt() > 34. && abs(NT_lep_p4[0].eta()) < 2.4 && (abs(NT_lep_p4[0].eta()) < 1.4442 || abs(NT_lep_p4[0].eta()) > 1.5660);
+	bool pass_mu_kino = pass_mu_id && NT_lep_p4[0].pt() > 30. && abs(NT_lep_p4[0].eta()) < 2.4;
+	bool pass_el_kino = pass_el_id && NT_lep_p4[0].pt() > 30. && abs(NT_lep_p4[0].eta()) < 2.4 && (abs(NT_lep_p4[0].eta()) < 1.4442 || abs(NT_lep_p4[0].eta()) > 1.5660);
 
 	trigs.pass_mu = pass_mu_id && pass_mu_kino && pass_mu_iso; // && pass_mu_impact;
 	trigs.pass_el = pass_el_id && pass_el_kino && pass_el_iso;
@@ -1731,7 +1801,7 @@ static bool NT_genproc_tt_eltau()
 static bool NT_genproc_ ##procname(void)          \
 	{                                  \
 	auto NT_gen_proc_id = NT_calc_gen_proc_id_tt(); \
-	return NT_gen_proc_id > (procID_min) && NT_gen_proc_id < (procID_max); \
+	return (NT_gen_proc_id > (procID_min)) && (NT_gen_proc_id < (procID_max)); \
 	}
 
 NT_genproc_range_tt(tt_mutau, 30, 33)
