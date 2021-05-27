@@ -484,9 +484,10 @@ static double NT_distr_tau_pt(ObjSystematics sys)
                     TES_factor_up = 1.006 + 0.012
                     TES_factor_dn = 1.006 - 0.012
 	*/
-	if (NT_tau_p4[0].pt() > 20 && abs(NT_tau_p4[0].eta())<2.4 )
-		{double pt = NT_tau_p4[0].pt();
-		return pt * NT_calc_leading_tau_energy_scale_correction(sys);
+	if ( NT_tau_IDlev[0]>2 && NT_tau_p4[0].pt() > 30 && abs(NT_tau_p4[0].eta())<2.4 && NT_jet_p4[0].pt()>30 )
+		{double tau_pt = NT_tau_p4[0].pt();
+		return tau_pt;
+		//return pt * NT_calc_leading_tau_energy_scale_correction(sys);
 		} 
 	else
 		return -111;
@@ -502,7 +503,7 @@ static double NT_distr_tau3h_pt(ObjSystematics sys)
 	{
 	if (NT_tau_p4.size()==0)
 		return -111.;
-	if (NT_tau_decayMode[0]==10 && NT_tau_p4[0].pt() >20) // && NT_tau_deep_IDlev[0] > 1) // interface is not defined for deep tau
+	if (NT_tau_decayMode[0]==10 && NT_tau_IDlev[0]>2 && NT_tau_p4[0].pt() >30 && abs(NT_tau_p4[0].eta())<2.4 && NT_jet_p4[0].pt()>30) // && NT_tau_deep_IDlev[0] > 1) // interface is not defined for deep tau
 	   {
 	    double tau3h_pt = NT_tau_p4[0].pt();
 	    return tau3h_pt * NT_calc_leading_tau_energy_scale_correction(sys);
@@ -791,6 +792,22 @@ static unsigned int TAUS_ID_CUT = TAUS_ID_CUT_VLoose; // # TAUS_ID_CUT_Medium # 
 static bool ONLY_3PI_TAUS = false;
 static double SV_SIGN_CUT = 2.5;
 
+bool passes_selection_lepton(unsigned int x)
+{
+if (x > NT_lep_p4.size()) return false;
+
+if (abs(NT_lep_id[x]) == 11)
+    {
+    // electron selection
+    return NT_lep_p4[x].pt() > 30. && abs(NT_lep_p4[x].eta()) < 2.4;
+     }
+else
+    {
+    // muons
+    return NT_lep_p4[x].pt() > 26. && abs(NT_lep_p4[x].eta()) < 2.4;
+    }
+}
+
 static unsigned int NT_calc_b_tagged_njets(ObjSystematics sys)
 	{
 	// TODO: correct
@@ -803,7 +820,7 @@ static unsigned int NT_calc_b_tagged_njets(ObjSystematics sys)
 
 		bool b_tagged_medium = jet_b_discr > b_tag_wp_medium;
 		if (pfid < 1 || abs(NT_jet_p4[jet_i].eta()) > JETS_ETA_CUT || NT_jet_p4[jet_i].pt() < JETS_PT_CUT || !b_tagged_medium) continue;
-
+		if ((!passes_selection_lepton(1)) && (NT_jet_matching_lep[jet_i]==1)) continue; //added for dR cross cleaning
 		n_bjets++;
 		}
 
